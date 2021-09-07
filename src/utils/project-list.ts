@@ -1,0 +1,27 @@
+const ProjectList = [
+  `Project A`,
+  `Project B`,
+  `Project C`,
+  `Project A`,
+  `Project B`,
+  `Project C`,
+  `Project A`,
+  `Project B`,
+  `Project C`,
+  `Project A`,
+  `Project B`,
+  `Project C`,
+  `Project A`,
+  `Project B`,
+  `Project C`,
+  `Project A`,
+  `Project B`,
+  `Project C`,
+  `Project A`,
+  `Project B`,
+  `Project C`,
+  `Project A`,
+  `Project B`,
+]
+
+export default ProjectList

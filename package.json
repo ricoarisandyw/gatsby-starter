@@ -1,0 +1,61 @@
+{
+  "name": "my-gatsby-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "My Gatsby Site",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint . --ignore-path .gitignore --ext .ts,.tsx,.js"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.4.1",
+    "@heroicons/react": "^1.0.4",
+    "@n8tb1t/use-scroll-position": "^2.0.3",
+    "@popperjs/core": "^2.9.2",
+    "@types/aos": "^3.0.4",
+    "aos": "^2.3.4",
+    "bootstrap": "^5.0.2",
+    "bootstrap-icons": "^1.5.0",
+    "gatsby": "^3.9.0",
+    "gatsby-image": "^3.10.0",
+    "gatsby-plugin-sass": "^4.9.0",
+    "gatsby-plugin-sharp": "^3.10.2",
+    "gatsby-plugin-web-font-loader": "^1.0.4",
+    "gatsby-source-filesystem": "^3.10.0",
+    "gatsby-transformer-sharp": "^3.10.0",
+    "html2canvas": "^1.1.4",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "sass": "^1.35.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.11",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.4",
+    "@typescript-eslint/eslint-plugin": "^2.8.0",
+    "@typescript-eslint/parser": "^2.8.0",
+    "autoprefixer": "^10.3.4",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.24.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "gatsby-plugin-postcss": "^4.13.0",
+    "gatsby-plugin-root-import": "^2.0.6",
+    "postcss": "^8.3.6",
+    "prettier": "2.1.1",
+    "tailwindcss": "^2.2.11",
+    "typescript": "^3.9.7"
+  }
+}
