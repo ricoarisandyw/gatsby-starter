@@ -21,9 +21,11 @@
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "@popperjs/core": "^2.9.2",
     "@types/aos": "^3.0.4",
+    "@types/ffmpeg.js": "^3.1.2",
     "aos": "^2.3.4",
     "bootstrap": "^5.0.2",
     "bootstrap-icons": "^1.5.0",
+    "ffmpeg.js": "^4.2.9003",
     "gatsby": "^3.9.0",
     "gatsby-image": "^3.10.0",
     "gatsby-plugin-sass": "^4.9.0",
@@ -34,6 +36,7 @@
     "html2canvas": "^1.1.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-webcam": "^6.0.0",
     "sass": "^1.35.2"
   },
   "devDependencies": {
