@@ -1,7 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 import React from 'react'
 import Webcam from 'react-webcam'
-import toMp4 from './converter'
 
 const Button: React.FC<React.HTMLProps<HTMLButtonElement>> = ({onClick, children}) => {
     return (
