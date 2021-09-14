@@ -1,0 +1,16 @@
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+.slick-dots li.slick-active button:before {
+    color: #9B51E0;
+    background-color: #9B51E0;
+    box-shadow: 0px 0px 4px 5px rgba(155, 81, 224, 0.55);
+    border-radius: 100%;
+    font-size: small;
+}
+
+@supports (-webkit-text-stroke: 1px black) {
+    .slick-dots li.slick-active button:before {
+      -webkit-text-stroke: 1px rgba(155, 81, 224, 0.55);
+    }
+}

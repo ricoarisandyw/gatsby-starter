@@ -1,3 +1,70 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.btn-colorful {
+  width: 259px;
+  height: 59px;
+  font-weight: bold;
+  color: white;
+  transition: .3s all ease;
+
+  background: radial-gradient(143.76% 127.97% at 49.81% 127.97%, rgba(155, 81, 224, 0) 0%, rgba(255, 255, 255, 0.176) 100%),
+    radial-gradient(23.17% 66.1% at 100% 0%, #f2c94c 0%, rgba(244, 198, 56, 0.04) 100%),
+    radial-gradient(100% 870.53% at 94.98% 0%, rgba(255, 0, 0, 0.8) 0%, rgba(187, 34, 34, 0) 100%),
+    radial-gradient(30.72% 135.59% at 47.3% 87.29%, rgba(187, 107, 217, 0.8) 0%, rgba(183, 19, 244, 0.208) 100%),
+    radial-gradient(22.56% 87.29% at 29.15% 67.8%, #2765b9 0%, rgba(47, 128, 237, 0.28) 100%),
+    radial-gradient(194.92% 896.57% at 3.28% 22.03%, rgba(86, 204, 242, 0.8) 0%, rgba(84, 201, 239, 0.8) 100%);
+  border-radius: 29.5px;
+}
+
+.btn-colorful:hover {
+  background: radial-gradient(143.76% 127.97% at 49.81% 127.97%, rgba(155, 81, 224, 0) 0%, rgba(255, 255, 255, 0.176) 100%),
+    radial-gradient(46.33% 94.74% at 30.5% -56.78%, #f2c94c 0%, rgba(244, 198, 56, 0.04) 100%),
+    radial-gradient(166.1% 770.08% at 11.78% -29.66%, rgba(255, 0, 0, 0.8) 0%, rgba(187, 34, 34, 0) 100%),
+    radial-gradient(27.84% 122.88% at 11.97% 100%, rgba(187, 107, 217, 0.8) 0%, rgba(183, 19, 244, 0.208) 100%),
+    radial-gradient(52.51% 261.48% at 94.98% 31.36%, #2765b9 0%, rgba(47, 128, 237, 0.28) 100%),
+    radial-gradient(210.17% 825.88% at 92.66% 6.78%, rgba(86, 204, 242, 0.8) 0%, rgba(84, 201, 239, 0.8) 100%);
+}
+
+.f-future {
+  font-family: "Orbitron";
+}
+
+.header-label {
+  font-size: 48px;
+  font-weight: bold;
+  background: linear-gradient(90.01deg, #9b51e0 0.74%, #f2994a 37.51%, #f2c94c 64.13%, #bb6bd9 95.82%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.color-colorful {
+  background: linear-gradient(90.01deg, #9b51e0 0.74%, #f2994a 37.51%, #f2c94c 64.13%, #bb6bd9 95.82%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-sky {
+  background-image: url("../images/sky.png");
+  background-size: cover;
+}
+
+.text-primary {
+  color: #9853e1;
+}
+
+.gradient-purple-red {
+  background: linear-gradient(270deg, #9b51e0 -15.84%, #eb5757 122.28%);
+}
+
+.gradient-purple-blue {
+  background: linear-gradient(90deg, #9b51e0 -26.73%, #2f80ed 125.25%);
+}
+
+.gradient-blue-purple {
+  background: linear-gradient(90deg, #2f80ed -7.92%, #bb6bd9 100%);
+}
