@@ -1,0 +1,70 @@
+.camera-container {
+    position: fixed;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.493);
+    top:0;
+    left:0;
+
+    .camera-modal {
+        min-width: 300px;
+        margin: auto;
+        // background: tomato;
+        display: flex;
+        position: relative;
+
+        .camera-frame {
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+
+        .camera {
+            position: absolute;
+            top:0;
+            left:0;
+            width: 100%;
+            height: 100%;
+            border-radius: 78px;
+            overflow: hidden;
+        }
+
+        .camera-result {
+            // transform: scaleX(2) scaleY(2);
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .camera-webcam {
+            transform: scaleX(-2) scaleY(2);
+            height: 100%;
+        }
+
+        .camera-controller {
+            position: absolute;
+            z-index: 20;
+            margin:auto;
+            width: 100%;
+            bottom: 3rem;
+            text-align: center;
+            font-weight: bold;
+
+            .camera-button-fill {
+                border-radius: 50px;
+                background: tomato;
+                padding: .5rem 2rem;
+                margin-bottom: .5rem;
+                cursor: pointer;
+            }
+
+            .camera-button-link {
+                border-radius: 20px;
+                padding: .5rem 2rem;
+                margin-bottom: .5rem;
+                color: tomato;
+                cursor: pointer;
+            }
+        }
+    }
+}
