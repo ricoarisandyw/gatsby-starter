@@ -1,5 +1,5 @@
 {
-    "include": ["./src/**/*"],
+    "include": ["./src/**/*", "camera"],
     "compilerOptions": {
       "target": "esnext",
       "module": "esnext",

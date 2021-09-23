@@ -67,4 +67,15 @@
             }
         }
     }
+
+    .camera-instructions {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 2rem;
+        color: white;
+        text-align: center;
+        font-size: xx-large;
+        z-index: 50;
+    }
 }

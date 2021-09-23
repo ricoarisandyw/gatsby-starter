@@ -33,10 +33,10 @@
     .uploader-file-container {
         position: relative;
         cursor: pointer;
+        padding: 1rem;
 
         .uploader-file {
-            height: 200px;
-            margin: 1rem;
+            max-height: 200px;
         }
 
         .uploader-delete {

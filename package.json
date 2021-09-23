@@ -16,6 +16,7 @@
     "lint": "eslint . --ignore-path .gitignore --ext .ts,.tsx,.js"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.6.4",
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.4",
     "@n8tb1t/use-scroll-position": "^2.0.3",
