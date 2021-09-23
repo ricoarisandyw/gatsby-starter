@@ -5,7 +5,6 @@ import 'antd/dist/antd.css'
 import Uploader from './Uploader/uploader-component'
 
 const INSTRUCTIONS = [
-    'Please follow the instructions & prepare your document',
     'Watch straight',
     'Watch left',
     'Watch right',
@@ -17,19 +16,19 @@ const INSTRUCTIONS = [
 // file format : name, type, data
 
 export default function Home() {
-    const [files, setFiles] = React.useState()
+    const [files, setFiles] = React.useState([])
 
     const onUpload = (file) => {
-        setFiles(files)
+        setFiles([...files,file])
     }
 
     const onDelete = (index) => {
-        setFiles(files)
+        setFiles(files.filter((_, i) => i !== index))
     }
 
     return <div>
         <Uploader 
-            mode="video"
+            mode="both"
             useInstructions={false}
             instructions={INSTRUCTIONS} 
             instructionsInterval={1000}
@@ -37,6 +36,7 @@ export default function Home() {
             files={files}
             onUpload={onUpload}
             onDelete={onDelete}
+            frame=""
         />
     </div>
 }

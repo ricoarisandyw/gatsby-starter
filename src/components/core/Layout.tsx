@@ -5,7 +5,7 @@ import "./Layout.scss"
 const Layout: React.FC = ({ children }) => {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="layout">{children}</div>
     </>
   )

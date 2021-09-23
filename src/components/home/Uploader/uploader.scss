@@ -10,6 +10,8 @@
         padding: 0 1rem;
         cursor: pointer;
         opacity: 0.5;
+        flex-direction: column;
+        display: flex;
 
         &:hover {
             opacity: 1;

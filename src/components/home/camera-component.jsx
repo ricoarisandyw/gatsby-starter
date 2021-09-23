@@ -1,6 +1,7 @@
 import React from 'react';
 import Webcam from 'react-webcam';
 import PropTypes from 'prop-types';
+import { Button } from 'antd';
 
 import cameraFrame from '../../images/camera-face-only.png';
 import cameraFrameWithIdentity from '../../images/camera-with-identity.png';
@@ -13,7 +14,9 @@ const CAMERA_STATUS = {
 };
 
 export default function Camera(props) {
-  const { mode, onClose, instructions } = props;
+  const {
+    mode, onClose, instructions, frame,
+  } = props;
 
   const [photo, setPhoto] = React.useState('');
   const mediaRecorderRef = React.useRef(null);
@@ -22,7 +25,7 @@ export default function Camera(props) {
   const [startRecord, setStartRecord] = React.useState(false);
   const [cameraStatus, setTaken] = React.useState(CAMERA_STATUS.BLANK);
   const [instructionIndex, setInstructionIndex] = React.useState(0);
-  const [frame, setFrame] = React.useState(cameraFrame);
+  const [frameCamera, setCameraFrame] = React.useState(frame === 'faceWithIdentity' ? cameraFrameWithIdentity : cameraFrame);
 
   const retake = () => {
     setTaken(CAMERA_STATUS.BLANK);
@@ -54,10 +57,7 @@ export default function Camera(props) {
       mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
         mimeType: 'video/webm;codecs=h264',
       });
-      mediaRecorderRef.current.addEventListener(
-        'dataavailable',
-        handleDataAvailable,
-      );
+      mediaRecorderRef.current.addEventListener('dataavailable', handleDataAvailable);
       mediaRecorderRef.current.start();
       setStartRecord(true);
       // setTaken(CAMERA_STATUS.VIDEO);
@@ -72,23 +72,6 @@ export default function Camera(props) {
     }
   };
 
-  // const handleDownload = React.useCallback(() => {
-  //   if (recordedChunks.length) {
-  //     const blob = new Blob(recordedChunks, {
-  //       type: 'video/mp4',
-  //     });
-  //     const url = URL.createObjectURL(blob);
-  //     const a = document.createElement('a');
-  //     document.body.appendChild(a);
-  //     a.setAttribute('style', 'display:none');
-  //     a.href = url;
-  //     a.download = 'react-webcam-stream-capture.mp4';
-  //     a.click();
-  //     window.URL.revokeObjectURL(url);
-  //     setRecordedChunks([]);
-  //   }
-  // }, [recordedChunks]);
-
   const done = () => {
     if (cameraStatus === CAMERA_STATUS.PHOTO) {
       props.onDone('image', photo);
@@ -96,7 +79,7 @@ export default function Camera(props) {
       props.onDone('video', recordedChunks);
     }
     setTaken(CAMERA_STATUS.BLANK);
-    setFrame(cameraFrame);
+    setCameraFrame(cameraFrame);
     props.onClose();
   };
 
@@ -113,67 +96,67 @@ export default function Camera(props) {
   }, [photo]);
 
   React.useEffect(() => {
-    if (instructionIndex < props.instructions.length && startRecord) {
-      setTimeout(() => {
-        console.log('Change', instructionIndex);
-        setInstructionIndex(instructionIndex + 1);
-        if (instructionIndex < props.instructions.length - 1 && props.instructions[instructionIndex + 1] === 'Show your document') {
-          setFrame(cameraFrameWithIdentity);
-        }
-      }, props.instructionsInterval);
-    } else if (instructionIndex === props.instructions.length && startRecord) {
-      stopVideo();
+    if (props.instructions.length) {
+      if (instructionIndex < props.instructions.length && startRecord) {
+        setTimeout(() => {
+          console.log('Change', instructionIndex);
+          setInstructionIndex(instructionIndex + 1);
+          // Change frame with identity
+          if (instructionIndex === props.instructions.length - 2) {
+            console.log('Change Frame');
+            setCameraFrame(cameraFrameWithIdentity);
+          }
+        }, props.instructionsInterval);
+      } else if (instructionIndex === props.instructions.length && startRecord) {
+        stopVideo();
+      }
     }
   }, [instructionIndex, startRecord]);
 
+  const webcam_size = frame === 'card' ? { width: '100%', margin: 'auto', borderRadius: '15px' } : { height: '584px' };
+
   return (
     <div className="camera-container">
-      <div className="camera-instructions">{instructions[instructionIndex]}</div>
       <div className="camera-modal show">
-        <div className="camera-frame">
-          <img src={frame} alt="camera-frame" />
-        </div>
+        <div className="camera-instructions">{instructions[instructionIndex]}</div>
+        <div className="camera-frame">{frame !== 'none' && frame !== 'card' && <img src={frameCamera} alt="camera-frame" />}</div>
         <div className="camera">
-          {!cameraStatus
-            ? (
-              <Webcam
-                style={{ transform: 'scaleX(2) scaleY(2)', height: '100%' }}
-                mirrored
-                audio={false}
-                ref={webcamRef}
-                videoConstraints={{
-                  facingMode: 'user',
-                }}
-              />
-            )
-            : <img className="camera-result" src={photo} alt="result" />}
+          {!cameraStatus ? (
+            <Webcam
+              style={webcam_size}
+              mirrored
+              audio={false}
+              ref={webcamRef}
+              videoConstraints={{
+                facingMode: 'user',
+              }}
+            />
+          ) : (
+            <img className="camera-result" src={photo} alt="result" />
+          )}
         </div>
         <div className="camera-controller">
-          {
-            mode === 'image'
-            && (
-            <div>
-              {
-                cameraStatus === CAMERA_STATUS.PHOTO
-                  ? <button type="button" className="camera-button-fill" onClick={retake}>Retake Photo</button>
-                  : <button type="button" className="camera-button-fill" onClick={screenShoot}>Take Photo</button>
-              }
+          {(mode === 'image' || mode === 'both') && (
+            <div className="mb-2">
+              {!startRecord && (
+                <Button shape="round" size="middle" type="button" className="sprout-button" onClick={screenShoot}>
+                  TAKE PHOTO
+                </Button>
+              )}
             </div>
-            )
-          }
-          {
-            mode === 'video'
-            && (
-            <div>
-              {
-                startRecord
-                  ? <button type="button" className="camera-button-fill" onClick={stopVideo}>Stop Video</button>
-                  : <button type="button" className="camera-button-fill" onClick={startVideo}>RECORD</button>
-              }
+          )}
+          {(mode === 'video' || mode === 'both') && (
+            <div className="mb-2">
+              {!startRecord && (
+                <Button shape="round" size="middle" type="button" className="sprout-button" onClick={startVideo}>
+                  RECORD
+                </Button>
+              )}
             </div>
-            )
-          }
-          <button type="button" className="camera-button-link" onClick={onClose}>CLOSE</button>
+          )}
+          <Button shape="round" size="middle" type="button" className="sprout-button" onClick={onClose}>
+            CLOSE
+          </Button>
         </div>
       </div>
     </div>
