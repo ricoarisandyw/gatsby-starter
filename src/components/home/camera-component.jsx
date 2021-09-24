@@ -53,14 +53,21 @@ export default function Camera(props) {
   );
 
   const startVideo = () => {
-    if (webcamRef.current && webcamRef.current.stream) {
-      mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
-        mimeType: 'video/webm;codecs=h264',
-      });
-      mediaRecorderRef.current.addEventListener('dataavailable', handleDataAvailable);
-      mediaRecorderRef.current.start();
-      setStartRecord(true);
-      // setTaken(CAMERA_STATUS.VIDEO);
+    try {
+      if (webcamRef.current && webcamRef.current.stream) {
+        mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+          mimeType: 'video/webm;codecs=h264',
+        });
+        mediaRecorderRef.current.addEventListener('dataavailable', handleDataAvailable);
+        mediaRecorderRef.current.start();
+        setStartRecord(true);
+        // setTaken(CAMERA_STATUS.VIDEO);
+        console.log('Start recording');
+      } else {
+        console.log('Webcam not ready');
+      }
+    } catch (e) {
+      console.log(e.message);
     }
   };
 
@@ -157,6 +164,10 @@ export default function Camera(props) {
           <Button shape="round" size="middle" type="button" className="sprout-button" onClick={onClose}>
             CLOSE
           </Button>
+          <div style={{ color: 'white' }}>
+            State :
+            {startRecord ? 'Start Record' : 'Stand by'}
+          </div>
         </div>
       </div>
     </div>

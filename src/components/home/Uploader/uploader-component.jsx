@@ -14,7 +14,7 @@ function File(props) {
   const { onDelete, src, type } = props;
 
   return (
-    <div className="uploader-file-container" onClick={onDelete} aria-hidden="true">
+    <div className="uploader-file-container">
       {type === 'image' ? (
         <img alt="file_image" className="uploader-file" src={src} />
       ) : (
@@ -22,7 +22,7 @@ function File(props) {
           <source src={src} />
         </video>
       )}
-      <div className="uploader-delete">
+      <div className="uploader-delete" onClick={onDelete} aria-hidden="true">
         <div className="uploader-icon">
           <CloseOutlined />
         </div>
@@ -36,6 +36,7 @@ export default function UploadFile(props) {
     mode, instructions, onUpload, limit, frame,
   } = props;
 
+  const [device, setDevice] = React.useState('Loading...');
   const [showWebcam, setShowWebcam] = React.useState(false);
   const uploadFileRef = React.createRef();
 
@@ -111,6 +112,10 @@ export default function UploadFile(props) {
     });
   };
 
+  React.useEffect(() => {
+    setDevice(navigator.userAgent);
+  }, []);
+
   const renderFile = props.files.map((file, i) => <File key={`uploaded_file_${i}`} type={file.type} src={file.binary} onDelete={() => onDelete(i)} />);
 
   return (
@@ -128,6 +133,7 @@ export default function UploadFile(props) {
           <span className="uploader-label">Use Camera</span>
         </div>
       </div>
+      {`Your device is ${device}`}
       {showWebcam && <Camera frame={frame} key="camera" instructions={instructions} mode={mode} onClose={closeWebcam} onDone={done} />}
     </>
   );
