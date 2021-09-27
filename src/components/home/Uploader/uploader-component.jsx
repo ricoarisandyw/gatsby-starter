@@ -11,7 +11,7 @@ import IconUploadDisabled from './icons/icon_upload_disable.svg';
 import IconCameraDisabled from './icons/icon_camera_disable.svg';
 
 function useDevice() {
-  const MOBILE = ['iphone', 'android'];
+  const MOBILE = ['iphone', 'android', 'mac'];
 
   const [device, setDevice] = React.useState('Loading...');
   const [isPhone, setIsPhone] = React.useState(false);
@@ -19,7 +19,7 @@ function useDevice() {
   React.useEffect(() => {
     setDevice(navigator.userAgent);
     for (const mob of MOBILE) {
-      if (navigator.userAgent.includes(mob)) {
+      if (navigator.userAgent.toLowerCase().includes(mob)) {
         setIsPhone(true);
       }
     }
