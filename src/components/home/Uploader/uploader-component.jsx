@@ -159,9 +159,9 @@ export default function UploadFile(props) {
           </div>
         </>
       </div>
-      {format}
+      {/* {format}
       <input onChange={handleFormatChange} type="text" placeholder="Video format" />
-      <button type="button" onClick={submitFormat}>SET FORMAT</button>
+      <button type="button" onClick={submitFormat}>SET FORMAT</button> */}
       {`Your device is ${device}`}
       {showWebcam && <Camera format={format} frame={frame} key="camera" instructions={instructions} mode={mode} onClose={closeWebcam} onDone={done} />}
     </>

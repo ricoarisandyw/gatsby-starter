@@ -13,6 +13,8 @@ const CAMERA_STATUS = {
   VIDEO: 2,
 };
 
+const ALL_VIDEO = ['video/mp4', 'video/ogg', 'video/webm', 'video/3gp', 'video/mpeg', 'video/x-matroska', 'video/x-m4v', 'video/ms-asf', 'video/quicktime', 'video/x-ms-wmv', 'video/x-msvideo'];
+
 export default function Camera(props) {
   const {
     mode, onClose, instructions, frame,
@@ -52,11 +54,30 @@ export default function Camera(props) {
     [setRecordedChunks],
   );
 
+  const getSupportedVideoFormat = () => {
+    console.log('TYPE LIST', ALL_VIDEO);
+    for (const type of ALL_VIDEO) {
+      try {
+        const media = new MediaRecorder(webcamRef.current.stream, {
+          mimeType: type,
+        });
+        console.log('Media ', type);
+        media.start();
+        console.log('Media start');
+        media.stop('Media stop');
+        return type;
+      } catch (e) {
+        console.log('Error', e.message);
+      }
+    }
+    return 'video/webm;codecs=h264';
+  };
+
   const startVideo = () => {
     try {
       if (webcamRef.current && webcamRef.current.stream) {
         mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
-          mimeType: props.format || 'video/webm;codecs=h264',
+          mimeType: getSupportedVideoFormat(),
         });
         mediaRecorderRef.current.addEventListener('dataavailable', handleDataAvailable);
         mediaRecorderRef.current.start();
