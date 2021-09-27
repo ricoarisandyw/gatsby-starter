@@ -10,6 +10,24 @@ import IconCamera from './icons/icon_camera.svg';
 import IconUploadDisabled from './icons/icon_upload_disable.svg';
 import IconCameraDisabled from './icons/icon_camera_disable.svg';
 
+function useDevice() {
+  const MOBILE = ['iphone', 'android'];
+
+  const [device, setDevice] = React.useState('Loading...');
+  const [isPhone, setIsPhone] = React.useState(false);
+
+  React.useEffect(() => {
+    setDevice(navigator.userAgent);
+    for (const mob of MOBILE) {
+      if (navigator.userAgent.includes(mob)) {
+        setIsPhone(true);
+      }
+    }
+  }, []);
+
+  return [device, isPhone];
+}
+
 function File(props) {
   const { onDelete, src, type } = props;
 
@@ -36,7 +54,7 @@ export default function UploadFile(props) {
     mode, instructions, onUpload, limit, frame,
   } = props;
 
-  const [device, setDevice] = React.useState('Loading...');
+  const [device, isPhone] = useDevice();
   const [showWebcam, setShowWebcam] = React.useState(false);
   const uploadFileRef = React.createRef();
 
@@ -112,10 +130,6 @@ export default function UploadFile(props) {
     });
   };
 
-  React.useEffect(() => {
-    setDevice(navigator.userAgent);
-  }, []);
-
   const renderFile = props.files.map((file, i) => <File key={`uploaded_file_${i}`} type={file.type} src={file.binary} onDelete={() => onDelete(i)} />);
 
   return (
@@ -127,11 +141,15 @@ export default function UploadFile(props) {
           <img alt="upload_icon" className="uploader-icon" src={fileReachLimit ? IconUploadDisabled : IconUpload} />
           <span className="uploader-label">Upload File</span>
         </div>
-        <span className="uploader-label">or</span>
-        <div aria-hidden="true" className="uploader-icon-container" onClick={openWebcam}>
-          <img alt="upload-icon" className="uploader-icon" src={fileReachLimit ? IconCameraDisabled : IconCamera} />
-          <span className="uploader-label">Use Camera</span>
-        </div>
+        {!isPhone && (
+        <>
+          <span className="uploader-label">or</span>
+          <div aria-hidden="true" className="uploader-icon-container" onClick={openWebcam}>
+            <img alt="upload-icon" className="uploader-icon" src={fileReachLimit ? IconCameraDisabled : IconCamera} />
+            <span className="uploader-label">Use Camera</span>
+          </div>
+        </>
+        )}
       </div>
       {`Your device is ${device}`}
       {showWebcam && <Camera frame={frame} key="camera" instructions={instructions} mode={mode} onClose={closeWebcam} onDone={done} />}
