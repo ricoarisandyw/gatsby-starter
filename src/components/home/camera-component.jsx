@@ -56,7 +56,7 @@ export default function Camera(props) {
     try {
       if (webcamRef.current && webcamRef.current.stream) {
         mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
-          mimeType: 'video/webm;codecs=h264',
+          mimeType: props.format || 'video/webm;codecs=h264',
         });
         mediaRecorderRef.current.addEventListener('dataavailable', handleDataAvailable);
         mediaRecorderRef.current.start();
@@ -125,7 +125,10 @@ export default function Camera(props) {
   return (
     <div className="camera-container">
       <div className="camera-modal show">
-        <div className="camera-instructions">{instructions[instructionIndex]}</div>
+        <div className="camera-instructions">
+          {' '}
+          {instructions[instructionIndex]}
+        </div>
         <div className="camera-frame">{frame !== 'none' && frame !== 'card' && <img src={frameCamera} alt="camera-frame" />}</div>
         <div className="camera">
           {!cameraStatus ? (

@@ -11,7 +11,7 @@ import IconUploadDisabled from './icons/icon_upload_disable.svg';
 import IconCameraDisabled from './icons/icon_camera_disable.svg';
 
 function useDevice() {
-  const MOBILE = ['iphone', 'android', 'mac'];
+  const MOBILE = ['iphone', 'android'];
 
   const [device, setDevice] = React.useState('Loading...');
   const [isPhone, setIsPhone] = React.useState(false);
@@ -54,6 +54,8 @@ export default function UploadFile(props) {
     mode, instructions, onUpload, limit, frame,
   } = props;
 
+  const [formatText, setFormatText] = React.useState('');
+  const [format, setFormat] = React.useState('');
   const [device, isPhone] = useDevice();
   const [showWebcam, setShowWebcam] = React.useState(false);
   const uploadFileRef = React.createRef();
@@ -130,6 +132,14 @@ export default function UploadFile(props) {
     });
   };
 
+  const handleFormatChange = (e) => {
+    setFormatText(e.target.value);
+  };
+
+  const submitFormat = () => {
+    setFormat(formatText);
+  };
+
   const renderFile = props.files.map((file, i) => <File key={`uploaded_file_${i}`} type={file.type} src={file.binary} onDelete={() => onDelete(i)} />);
 
   return (
@@ -141,7 +151,6 @@ export default function UploadFile(props) {
           <img alt="upload_icon" className="uploader-icon" src={fileReachLimit ? IconUploadDisabled : IconUpload} />
           <span className="uploader-label">Upload File</span>
         </div>
-        {!isPhone && (
         <>
           <span className="uploader-label">or</span>
           <div aria-hidden="true" className="uploader-icon-container" onClick={openWebcam}>
@@ -149,10 +158,12 @@ export default function UploadFile(props) {
             <span className="uploader-label">Use Camera</span>
           </div>
         </>
-        )}
       </div>
+      {format}
+      <input onChange={handleFormatChange} type="text" placeholder="Video format" />
+      <button type="button" onClick={submitFormat}>SET FORMAT</button>
       {`Your device is ${device}`}
-      {showWebcam && <Camera frame={frame} key="camera" instructions={instructions} mode={mode} onClose={closeWebcam} onDone={done} />}
+      {showWebcam && <Camera format={format} frame={frame} key="camera" instructions={instructions} mode={mode} onClose={closeWebcam} onDone={done} />}
     </>
   );
 }
